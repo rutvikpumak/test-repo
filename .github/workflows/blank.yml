@@ -23,8 +23,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(context) 
-            github.issues.createComment({
+            | console.log(context) 
+            | github.issues.createComment({
             owner: context.repo.owner,
             url:  ${{github.event.issue.pull_request.url}},
             repo: context.repo.repo,
