@@ -18,6 +18,12 @@ jobs:
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
       - name: "echo Comment"
         run: echo "${{ github.event.comment.body }}\n"
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            Hello world ! :wave:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: PR Comment
         uses: actions/github-script@v2
         with:
