@@ -18,7 +18,3 @@ jobs:
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
       - name: "echo Comment"
         run: "echo ${{ github.event.comment.body }}\n"
-      - name: "Checkout upstream repo"
-        uses: actions/checkout@v2
-        with:
-          ref: "${{ steps.upstreambranch.outputs.branchname }}"
