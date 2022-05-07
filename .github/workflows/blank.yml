@@ -25,6 +25,7 @@ jobs:
           script: |
             github.issues.createComment({
             owner: context.repo.owner,
+            url:  github.event.issue.pull_request.url,
             repo: context.repo.repo,
             body: 'Hello World'
             })
