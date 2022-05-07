@@ -17,4 +17,4 @@ jobs:
       - name: "echo upstream branch"
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
       - name: "echo Comment"
-        run: "echo ${{ github.event.comment.body }}\n"
+        run: echo "${{ github.event.comment.body }}\n"
