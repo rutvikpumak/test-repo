@@ -13,9 +13,14 @@ jobs:
         name: "Dump GitHub context"
         run: 'echo "$GITHUB_CONTEXT"'
       - name: "get pullrequest url"
-        run: echo "${{ toJson(github.event) }}"
+        run: echo "${{ github.event.issue.pull_request.url }}"
       - name: "echo upstream branch"
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
+      - name: Checkout Pull Request
+        run: |
+          PR_URL="${{ github.event.issue.pull_request.url }}"
+          PR_NUM=${PR_URL##*/}
+          echo "${{PR_NUM}}"
       - name: "echo Comment"
         run: echo "${{ github.event.comment.body }}\n"
       - name: PR Comment
