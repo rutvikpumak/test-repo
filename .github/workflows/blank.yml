@@ -22,11 +22,10 @@ jobs:
         uses: actions/github-script@v2
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
+          issue-number: ${{ github.event.pull_request.number }}
           script: |
-            | console.log(context) 
-            | github.issues.createComment({
+            github.issues.createComment({
             owner: context.repo.owner,
-            url:  ${{github.event.issue.pull_request.url}},
             repo: context.repo.repo,
             body: 'Hello World'
             })
