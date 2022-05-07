@@ -17,6 +17,8 @@ jobs:
       - name: "echo upstream branch"
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
       - name: Checkout Pull Request
+        env:
+          PR_NUM: ""
         run: |
           PR_URL="${{ github.event.issue.pull_request.url }}"
           PR_NUM=${PR_URL##*/}
