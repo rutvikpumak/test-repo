@@ -5,24 +5,23 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   job01:
-    if: contains(github.event.comment.html_url, '/pull/') && contains(github.event.comment.body, 'commenttest')
+    if: "contains(github.event.comment.html_url, '/pull/') && contains(github.event.comment.body, 'commenttest')"
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: get pullrequest url
-        run: |
-          echo ${{ github.event.issue.pull_request.url }}
-      - name: get upstream branch
-        id: upstreambranch
-        run: |
-          echo "::set-output name=branchname::$(curl -v -H "Accept: application/vnd.github.sailor-v-preview+json" -u ${{ secrets.PAT }} ${{ github.event.issue.pull_request.url }} | jq '.head.ref' | sed 's/\"//g')"
-      - name: echo upstream branch
-        run: |
-          echo ${{ steps.upstreambranch.outputs.branchname }}
-      - name: Checkout upstream repo
+      - env:
+          GITHUB_CONTEXT: "${{ toJson(github) }}"
+        name: "Dump GitHub context"
+        run: 'echo "$GITHUB_CONTEXT"'
+      - name: "get pullrequest url"
+        run: "echo ${{ github.event.issue.pull_request.url }}\n"
+      - id: upstreambranch
+        name: "get upstream branch"
+        run: "echo \"::set-output name=branchname::$(curl -v -H \"Accept: application/vnd.github.sailor-v-preview+json\" -u ${{ secrets.PAT }} ${{ github.event.issue.pull_request.url }} | jq '.head.ref' | sed 's/\\\"//g')\"\n"
+      - name: "echo upstream branch"
+        run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
+      - name: "echo Comment"
+        run: "echo ${{ github.event.comment.body }}\n"
+      - name: "Checkout upstream repo"
         uses: actions/checkout@v2
         with:
-          ref: ${{ steps.upstreambranch.outputs.branchname }}
+          ref: "${{ steps.upstreambranch.outputs.branchname }}"
