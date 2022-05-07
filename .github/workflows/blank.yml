@@ -5,7 +5,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   job01:
-    if: "contains(github.event.comment.html_url, '/pull/') && contains(github.event.comment.body, 'commenttest') ||contains(github.event.comment.body, 'netlify')"
+    if: "contains(github.event.comment.html_url, '/pull/') && (contains(github.event.comment.body, 'commenttest') ||contains(github.event.comment.body, 'netlify'))"
     runs-on: ubuntu-latest
     steps:
       - env:
