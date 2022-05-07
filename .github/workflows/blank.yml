@@ -13,7 +13,7 @@ jobs:
         name: "Dump GitHub context"
         run: 'echo "$GITHUB_CONTEXT"'
       - name: "get pullrequest url"
-        run: "echo ${{ github.event }}\n"
+        run: echo "${{ toJson(github.event) }}\n"
       - name: "echo upstream branch"
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
       - name: "echo Comment"
@@ -22,7 +22,7 @@ jobs:
         uses: actions/github-script@v2
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ toJson(github.event.pull_request.number) }}
           script: |
             github.issues.createComment({
             owner: context.repo.owner,
