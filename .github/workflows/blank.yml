@@ -18,3 +18,10 @@ jobs:
         run: "echo ${{ steps.upstreambranch.outputs.branchname }}\n"
       - name: "echo Comment"
         run: echo "${{ github.event.comment.body }}\n"
+      - uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: |
+            **Hello FROM PR**
+          allow-repeats: true
